@@ -6,33 +6,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class RepresentableGroup implements Representable {
+public final class RepresentableGroup implements TagContentApplicable {
 
-  private final List<Representable> representables;
+  private final List<TagContentApplicable> representables;
 
-  RepresentableGroup(Representable[] representables) {
+  RepresentableGroup(TagContentApplicable[] representables) {
     this(Arrays.asList(representables));
   }
 
-  RepresentableGroup(List<Representable> representables) {
+  RepresentableGroup(List<TagContentApplicable> representables) {
     this.representables = representables;
   }
 
-  List<Representable> getRepresentables() {
-    return representables;
+  List<TagContentApplicable> getRepresentables() {
+    return this.representables;
+  }
+
+  public RepresentableGroup() {
+    this.representables = Collections.emptyList();
   }
 
   @SafeVarargs
-  public RepresentableGroup(List<Representable>... representables) {
+  public RepresentableGroup(List<TagContentApplicable>... representables) {
     this.representables = Arrays.stream(representables)
       .reduce((a, b) -> Stream.concat(a.stream(), b.stream()).collect(Collectors.toList()))
       .orElse(Collections.emptyList());
   }
 
   @Override
-  public String represent() {
-    return this.representables.stream()
-      .map(Representable::represent)
-      .collect(Collectors.joining());
+  public List<TagContentApplicable> getContent() {
+    return this.representables;
   }
 }

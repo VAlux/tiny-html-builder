@@ -1,6 +1,9 @@
 package dev.alvo.html;
 
-public final class Content implements Representable {
+import java.util.Collections;
+import java.util.List;
+
+public final class Content implements TagContentApplicable {
 
   private final String data;
 
@@ -8,8 +11,12 @@ public final class Content implements Representable {
     this.data = data;
   }
 
-  @Override
-  public String represent() {
+  public String getData() {
     return this.data;
+  }
+
+  @Override
+  public List<TagContentApplicable> getContent() {
+    return Collections.singletonList(this);
   }
 }

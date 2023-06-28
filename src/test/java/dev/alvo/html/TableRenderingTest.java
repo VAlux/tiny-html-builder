@@ -11,52 +11,45 @@ import static dev.alvo.html.HtmlBuildingDSL.*;
 
 public class TableRenderingTest {
 
-  private String buildMessageText(final List<DummyEntity> entities) {
-    final Document document =
-      document(
-        body(
-          table(
-            row(
-              column(text("string")),
-              column(text("aDouble")),
-              column(text("aLong")),
-              column(text("aFloat")),
-              column(text("integer")),
-              column(text("aShort")),
-              column(text("character")),
-              column(text("aByte")),
-              column(text("primDouble")),
-              column(text("primLong")),
-              column(text("primFloat")),
-              column(text("primInt")),
-              column(text("primShort")),
-              column(text("primChar")),
-              column(text("primByte"))
-            ),
-            forEach(entities, entity ->
-              row(
-                column(text(entity.string)),
-                column(text(entity.aDouble)),
-                column(text(entity.aLong)),
-                column(text(entity.aFloat)),
-                column(text(entity.integer)),
-                column(text(entity.aShort)),
-                column(text(entity.character)),
-                column(text(entity.aByte)),
-                column(text(entity.primDouble)),
-                column(text(entity.primLong)),
-                column(text(entity.primInt)),
-                column(text(entity.primFloat)),
-                column(text(entity.primShort)),
-                column(text(entity.primChar)),
-                column(text(entity.primByte))
-              )
-            )
-          )
+  private Tag buildTable(final List<DummyEntity> entities) {
+    return table(
+      row(
+        column(text("string")),
+        column(text("aDouble")),
+        column(text("aLong")),
+        column(text("aFloat")),
+        column(text("integer")),
+        column(text("aShort")),
+        column(text("character")),
+        column(text("aByte")),
+        column(text("primDouble")),
+        column(text("primLong")),
+        column(text("primFloat")),
+        column(text("primInt")),
+        column(text("primShort")),
+        column(text("primChar")),
+        column(text("primByte"))
+      ),
+      forEach(entities, entity ->
+        row(
+          column(text(entity.string)),
+          column(text(entity.aDouble)),
+          column(text(entity.aLong)),
+          column(text(entity.aFloat)),
+          column(text(entity.integer)),
+          column(text(entity.aShort)),
+          column(text(entity.character)),
+          column(text(entity.aByte)),
+          column(text(entity.primDouble)),
+          column(text(entity.primLong)),
+          column(text(entity.primInt)),
+          column(text(entity.primFloat)),
+          column(text(entity.primShort)),
+          column(text(entity.primChar)),
+          column(text(entity.primByte))
         )
-      );
-
-    return document.represent();
+      )
+    );
   }
 
   @Test
@@ -91,9 +84,10 @@ public class TableRenderingTest {
       "</td><td>15</td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.4" +
       "2</td><td>22</td><td>b</td><td>8</td></tr></table>";
 
-    final String result = buildMessageText(dummyEntities);
+    HtmlInterpreter htmlInterpreter = new HtmlInterpreter();
+    String actual = htmlInterpreter.interpret(buildTable(dummyEntities));
 
-    Assert.assertEquals(expected, result);
+    Assert.assertEquals(expected, actual);
   }
 
   private static final class DummyEntity {

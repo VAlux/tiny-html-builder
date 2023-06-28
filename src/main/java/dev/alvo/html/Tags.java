@@ -132,13 +132,13 @@ public enum Tags {
   VIDEO((repr, attr) -> new Tag("video", repr, attr)),
   WBR((repr, attr) -> new Tag("wbr", repr, attr));
 
-  private final BiFunction<List<Representable>, Set<Attribute>, Tag> tagSupplier;
+  private final BiFunction<List<TagContentApplicable>, Set<Attribute>, Tag> tagSupplier;
 
-  Tags(BiFunction<List<Representable>, Set<Attribute>, Tag> tagSupplier) {
+  Tags(BiFunction<List<TagContentApplicable>, Set<Attribute>, Tag> tagSupplier) {
     this.tagSupplier = tagSupplier;
   }
 
-  public BiFunction<List<Representable>, Set<Attribute>, Tag> getTagSupplier() {
-    return tagSupplier;
+  public BiFunction<List<TagContentApplicable>, Set<Attribute>, Tag> getTagSupplier() {
+    return this.tagSupplier;
   }
 }

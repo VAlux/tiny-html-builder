@@ -1,6 +1,8 @@
 package dev.alvo.html;
 
-public final class Attribute implements Representable {
+import java.util.Objects;
+
+public final class Attribute {
 
   private final String name;
   private final String value;
@@ -16,19 +18,23 @@ public final class Attribute implements Representable {
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public String getValue() {
-    return value;
+    return this.value;
   }
 
   @Override
-  public String represent() {
-    if (value != null) {
-      return String.format("%s=\"%s\"", this.name, this.value);
-    }
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Attribute attribute = (Attribute) o;
+    return Objects.equals(this.name, attribute.name) && Objects.equals(this.value, attribute.value);
+  }
 
-    return this.name;
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.value);
   }
 }

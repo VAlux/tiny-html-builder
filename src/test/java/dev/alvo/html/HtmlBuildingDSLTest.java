@@ -1,6 +1,7 @@
 package dev.alvo.html;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,10 +13,17 @@ public class HtmlBuildingDSLTest {
 
   private static final Attribute STYLE = new Attribute("style", "border:2px solid black");
 
+  private HtmlInterpreter htmlInterpreter;
+
+  @Before
+  public void setUp() {
+    this.htmlInterpreter = new HtmlInterpreter();
+  }
+
   @Test
   public void heading() {
     final String content = "heading test";
-    final String result = HtmlBuildingDSL.heading(1, text(content)).represent();
+    final String result = this.htmlInterpreter.interpret(h1(text(content)));
     Assert.assertEquals("<h1>" + content + "</h1>", result);
   }
 
@@ -23,11 +31,11 @@ public class HtmlBuildingDSLTest {
   public void testTableColumn() {
     final String content = "column test";
 
-    final String valueResult = column(text(content)).represent();
-    final String valueStyleResult = column(STYLE).apply(to(text(content))).represent();
+    final String valueResult = this.htmlInterpreter.interpret(column(text(content)));
+    final String valueStyleResult = this.htmlInterpreter.interpret(column(attrs(STYLE), text(content)));
 
     final String expected = "<td>" + content + "</td>";
-    final String expectedStyle = "<td " + STYLE.represent() + ">" + content + "</td>";
+    final String expectedStyle = "<td style=\"border:2px solid black\">" + content + "</td>";
 
     Assert.assertEquals(expected, valueResult);
     Assert.assertEquals(expectedStyle, valueStyleResult);
@@ -37,11 +45,11 @@ public class HtmlBuildingDSLTest {
   public void testTableRow() {
     final String content = "row test";
 
-    final String result = row(text(content)).represent();
-    final String styleResult = row(STYLE).apply(to(text(content))).represent();
+    final String result = this.htmlInterpreter.interpret(row(text(content)));
+    final String styleResult = this.htmlInterpreter.interpret(row(attrs(STYLE), text(content)));
 
     final String expected = "<tr>" + content + "</tr>";
-    final String expectedStyle = "<tr " + STYLE.represent() + ">" + content + "</tr>";
+    final String expectedStyle = "<tr style=\"border:2px solid black\">" + content + "</tr>";
 
     Assert.assertEquals(expected, result);
     Assert.assertEquals(expectedStyle, styleResult);
@@ -52,36 +60,34 @@ public class HtmlBuildingDSLTest {
     final String content = "table test";
     final Attribute style = new Attribute("style", "border:2px solid black");
 
-    final String supplierResult = table(() -> content).represent();
-    final String supplierStyleResult = table(style).apply(to(() -> content)).represent();
+    final String supplierResult = this.htmlInterpreter.interpret(table(text(content)));
+    final String supplierStyleResult = this.htmlInterpreter.interpret(table(attrs(style), text(content)));
 
     final String expected = "<table>" + content + "</table>";
-    final String expectedStyle = "<table " + style.represent() + ">" + content + "</table>";
+    final String expectedStyle = "<table style=\"border:2px solid black\">" + content + "</table>";
 
     Assert.assertEquals(expected, supplierResult);
     Assert.assertEquals(expectedStyle, supplierStyleResult);
   }
 
   @Test
-  public void testDocument() {
-    final String content = "table test";
+  public void testScript() {
+    final Attribute src = new Attribute("src", "path/to/script");
+    final Attribute type = new Attribute("type", "text/javascript");
 
-    final String supplierResult = document(html(() -> content)).represent();
+    final String actual = this.htmlInterpreter.interpret(script(type, src));
+    final String expected = "<script type=\"text/javascript\" src=\"path/to/script\"></script>";
 
-    final String expected = "<html>" + content + "</html>";
-
-    Assert.assertEquals(expected, supplierResult);
+    Assert.assertEquals(expected, actual);
   }
 
   @Test
   public void testForEach() {
     final List<Content> content = Arrays.asList(text("one"), text("two"), text("three"));
 
-    final String result = forEach(content, HtmlBuildingDSL::column).represent();
-
+    final String result = this.htmlInterpreter.interpret(forEach(content, HtmlBuildingDSL::column));
     final String expected = "<td>one</td><td>two</td><td>three</td>";
 
     Assert.assertEquals(expected, result);
   }
-
 }
