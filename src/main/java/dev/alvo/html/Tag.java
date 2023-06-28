@@ -29,26 +29,6 @@ public class Tag implements Representable {
     this.attributes = attributes;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public boolean hasContent() {
-    return this.content.isEmpty();
-  }
-
-  public List<Representable> getContent() {
-    return content;
-  }
-
-  public void addAttribute(final Attribute attribute) {
-    attributes.add(attribute);
-  }
-
-  public Set<Attribute> getAttributes() {
-    return attributes;
-  }
-
   @Override
   public String represent() {
     final String attributes = this.attributes.stream()
