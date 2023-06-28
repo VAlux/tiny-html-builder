@@ -5,15 +5,15 @@ import java.util.stream.Collectors;
 
 public class HtmlInterpreter {
 
-  public String interpret(TagContentApplicable root) {
+  public String interpret(final TagContentApplicable root) {
     return this.interpretElement(root);
   }
 
-  private String interpret(List<TagContentApplicable> root) {
+  private String interpret(final List<TagContentApplicable> root) {
     return root.stream().map(this::interpretElement).collect(Collectors.joining());
   }
 
-  private String interpretElement(TagContentApplicable content) {
+  private String interpretElement(final TagContentApplicable content) {
     if (content instanceof RepresentableGroup) {
       return interpret(content.getContent());
     } else if (content instanceof Tag) {
@@ -30,7 +30,7 @@ public class HtmlInterpreter {
     throw new IllegalArgumentException("Unknown content type: " + content.getClass().getSimpleName());
   }
 
-  private String createStartingTag(Tag tag) {
+  private String createStartingTag(final Tag tag) {
     if (tag.getAttributes().isEmpty()) {
       return String.format("<%s>", tag.getName());
     } else {

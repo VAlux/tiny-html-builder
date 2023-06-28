@@ -10,16 +10,8 @@ public final class RepresentableGroup implements TagContentApplicable {
 
   private final List<TagContentApplicable> representables;
 
-  RepresentableGroup(TagContentApplicable[] representables) {
-    this(Arrays.asList(representables));
-  }
-
   RepresentableGroup(List<TagContentApplicable> representables) {
     this.representables = representables;
-  }
-
-  List<TagContentApplicable> getRepresentables() {
-    return this.representables;
   }
 
   public RepresentableGroup() {
