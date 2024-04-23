@@ -1529,7 +1529,7 @@ public final class HtmlBuildingDSL {
   }
 
   /**
-   * Accepts key-value pairs separated by '=' in a form of a string array
+   * Accepts key-value pairs separated by '=' or : in a form of a string array
    */
   public static Set<Attribute> attrs(String... attributes) {
     return Arrays.stream(attributes)
@@ -1538,7 +1538,7 @@ public final class HtmlBuildingDSL {
   }
 
   private static Optional<Attribute> toAttribute(String attribute) {
-    String[] attributeData = attribute.split("=");
+    String[] attributeData = attribute.split("[=:]");
 
     if (attributeData.length != 2) {
       return Optional.empty();

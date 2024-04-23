@@ -1,5 +1,7 @@
 package dev.alvo.html;
 
+import dev.alvo.html.interpreter.HtmlInterpreter;
+import dev.alvo.html.interpreter.PrettyHtmlInterpreter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -62,25 +64,25 @@ public class TableRenderingTest {
     final String expected = "<table><tr><td>string</td><td>aDouble</td><td>aLong</td><td>aFloat</td>" +
       "<td>integer</td><td>aShort</td><td>character</td><td>aByte</td><td>primDouble</td><td>prim" +
       "Long</td><td>primFloat</td><td>primInt</td><td>primShort</td><td>primChar</td><td>primByte" +
-      "</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>22</td><" +
+      "</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>22</td><" +
       "td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22</td><td>b</td>" +
-      "<td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>22</" +
+      "<td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>22</" +
       "td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22</td><td>b</" +
-      "td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>" +
+      "td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><td>" +
       "22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22</td><td" +
-      ">b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><" +
+      ">b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td><" +
       "td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22</td><" +
-      "td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td" +
+      "td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15</td" +
       "><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22</t" +
-      "d><td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>15<" +
+      "d><td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>15<" +
       "/td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td>22" +
-      "</td><td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td><td>" +
+      "</td><td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td><td>" +
       "15</td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td><td" +
-      ">22</td><td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</td>" +
+      ">22</td><td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</td>" +
       "<td>15</td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42</td" +
-      "><td>22</td><td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42</" +
+      "><td>22</td><td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42</" +
       "td><td>15</td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.42<" +
-      "/td><td>22</td><td>b</td><td>8</td></tr><tr><td>stirng</td><td>42.0</td><td>24</td><td>42.42" +
+      "/td><td>22</td><td>b</td><td>8</td></tr><tr><td>string</td><td>42.0</td><td>24</td><td>42.42" +
       "</td><td>15</td><td>22</td><td>a</td><td>8</td><td>42.24</td><td>24</td><td>15</td><td>42.4" +
       "2</td><td>22</td><td>b</td><td>8</td></tr></table>";
 
@@ -91,7 +93,7 @@ public class TableRenderingTest {
   }
 
   private static final class DummyEntity {
-    final String string = "stirng";
+    final String string = "string";
 
     final Double aDouble = 42D;
     final Long aLong = 24L;

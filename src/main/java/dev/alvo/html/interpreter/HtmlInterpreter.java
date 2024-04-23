@@ -1,4 +1,6 @@
-package dev.alvo.html;
+package dev.alvo.html.interpreter;
+
+import dev.alvo.html.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
