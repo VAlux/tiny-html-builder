@@ -59,16 +59,13 @@ public class HtmlBuildingDSLTest {
   @Test
   public void testTableWithStyle() {
     Tag table = table(attrs("width:100%"),
-      row(
-        column(text("something")),
-        column(text("something else")),
-        column(text("something more"))
-      )
-    );
+        row(
+            column(text("something")),
+            column(text("something else")),
+            column(text("something more"))));
 
     String actual = new HtmlInterpreter().interpret(table);
-    final String expected =
-      "<table width=\"100%\"><tr><td>something</td><td>something else</td><td>something more</td></tr></table>";
+    final String expected = "<table width=\"100%\"><tr><td>something</td><td>something else</td><td>something more</td></tr></table>";
 
     Assert.assertEquals(expected, actual);
   }
@@ -83,8 +80,6 @@ public class HtmlBuildingDSLTest {
 
     final String expected = "<table>" + content + "</table>";
     final String expectedStyle = "<table style=\"border:2px solid black\">" + content + "</table>";
-
-    System.out.println(supplierResult);
 
     Assert.assertEquals(expected, supplierResult);
     Assert.assertEquals(expectedStyle, supplierStyleResult);
