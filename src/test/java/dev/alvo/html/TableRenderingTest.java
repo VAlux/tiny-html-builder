@@ -1,7 +1,6 @@
 package dev.alvo.html;
 
 import dev.alvo.html.interpreter.HtmlInterpreter;
-import dev.alvo.html.interpreter.PrettyHtmlInterpreter;
 import org.junit.Assert;
 import org.junit.Test;
 

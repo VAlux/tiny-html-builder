@@ -61,8 +61,8 @@ public class PrettyHtmlInterpreter {
 
   private String representIndent(final int indent) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (int i = 0; i < indent; i++) {
-      stringBuilder.append("  ");
+    for (int i = 0; i < indent * this.indentSize; i++) {
+      stringBuilder.append(this.indentContent);
     }
 
     return stringBuilder.toString();
